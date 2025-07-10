@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
-import { AfterViewInit, Component, computed, effect, inject, Input, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, computed, effect, inject, Input, signal, ViewChild } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +9,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DatePipe, CommonModule } from '@angular/common';
 import { TasksStore } from '../../+store/tasks.store';
 import { BoardsStore } from '../../+store/boards.store';
+import { MatSelectModule } from '@angular/material/select';
 
 export interface Task {
   id: string;
@@ -38,6 +39,7 @@ type StatusId =
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
+    MatSelectModule,
     DatePipe
   ]
 })
@@ -46,13 +48,14 @@ export class TableComponent implements AfterViewInit {
   tasksStore = inject(TasksStore);
 
   displayedColumns: string[] = ['select', 'name', 'description', 'statusName', 'createdAt'];
-  colors=["#49C4E5","#8471F2","#67E2AE","#d6d45a","#e09660","#e0635e","#de5fc7","#5d64de"]
   selection = new SelectionModel<Task>(true, []);
 
-  @Input() tasks:Array<Task>= [];
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  searchTerm: string = '';
+  selectedPerson: string = '';
 
-  // readonly unfilteredTasks = computed(() => this.tasksStore.tasks());
+  @Input() tasks: Array<Task> = [];
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;  // static: false is safer with signals
+
   readonly newTasks = computed(() => {
     const statuses = this.boardsStore.activeBoard()?.statuses ?? [];
     return this.tasks.map(task => ({
@@ -61,58 +64,84 @@ export class TableComponent implements AfterViewInit {
     }));
   });
 
-  dataSource = signal(new MatTableDataSource<Task>([]));
-  statuses = this.boardsStore.activeBoard()?.statuses || [];
+  readonly uniquePersons = computed(() => {
+    // this.newTasks() is your enriched tasks array
+    const allPersons = this.newTasks().map(task => task.description).filter(Boolean);
+    // Remove duplicates
+    return Array.from(new Set(allPersons));
+  });
 
+  dataSource = signal(new MatTableDataSource<Task>([]));
   isDataReady = signal(false);
 
-  ngAfterViewInit() {
-    // Assign sort after view init
-    this.dataSource().sort = this.sort;
-    this.dataSource().sortingDataAccessor = (item, property) => {
-      if (property === 'createdAt') {
-        return new Date(item.createdAt).getTime();
-      }
-      if (property === 'statusName') {
-        return (item as any).statusName || '';
-      }
-      if (property === 'statusId') {
-        return item.statusId;
-      }
-      return (item as any)[property];
-    };
-  }
-
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
+    // Use effect to update data, sort, and change detection
     effect(() => {
       const tasks = this.newTasks();
-      this.dataSource().data = tasks;
-      if (tasks.length) this.isDataReady.set(true);
+      const ds = this.dataSource();
+      ds.data = tasks;
+      if (this.sort) {
+        ds.sort = this.sort;
+        ds.sortingDataAccessor = (item, property) => {
+          if (property === 'createdAt') {
+            return new Date(item.createdAt).getTime();
+          }
+          if (property === 'statusName') {
+            return item.statusName || '';
+          }
+          if (property === 'statusId') {
+            return item.statusId;
+          }
+          return (item as any)[property];
+        };
+      }
+      ds._updateChangeSubscription();
+      this.isDataReady.set(tasks.length > 0);
+      this.cdr.markForCheck();
     });
   }
 
-  // ngOnInit() {
-  //   this.dataSource().sort = this.sort;
-  //   this.dataSource().sortingDataAccessor = (item, property) => {
-  //     if (property === 'createdAt') {
-  //       return new Date(item.createdAt).getTime();
-  //     }
-  //     if (property === 'statusId') {
-  //       return item.statusId;
-  //     }
-  //     return (item as any)[property];
-  //   };
-  // }
+  ngAfterViewInit() {
+    // Assign sort when the view is ready and sort exists
+    if (this.dataSource() && this.sort) {
+      this.dataSource().sort = this.sort;
+      // Optionally update the subscription here too
+      this.dataSource()._updateChangeSubscription();
+      this.cdr.detectChanges(); // force re-render for matSort
+    }
+  }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource().filter = filterValue.trim().toLowerCase();
-    this.dataSource().filterPredicate = (data, filter) =>
-      data.name.toLowerCase().includes(filter) ||
-      data.description.toLowerCase().includes(filter) ||
-      (data.statusName?.toLowerCase().includes(filter) ?? false) ||
-      (data.createdAt ? data.createdAt.toLowerCase().includes(filter) : false);
-  }  
+    this.searchTerm = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.compositeFilter();
+  }
+
+  filterByPerson(person: string) {
+    this.selectedPerson = person;
+    this.compositeFilter();
+  }
+
+  compositeFilter() {
+    this.dataSource().filter = JSON.stringify({
+      search: this.searchTerm,
+      person: this.selectedPerson
+    });
+
+    this.dataSource().filterPredicate = (data, filterString) => {
+      const filter = JSON.parse(filterString);
+      const matchesPerson =
+        !filter.person ||
+        data.description.toLowerCase() === filter.person.toLowerCase();
+      const matchesSearch =
+        !filter.search ||
+        data.name.toLowerCase().includes(filter.search) ||
+        data.description.toLowerCase().includes(filter.search) ||
+        (data.statusName?.toLowerCase().includes(filter.search) ?? false) ||
+        (data.createdAt ? data.createdAt.toLowerCase().includes(filter.search) : false);
+
+      return matchesPerson && matchesSearch;
+    };
+  }
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;

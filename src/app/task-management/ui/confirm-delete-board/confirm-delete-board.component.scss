@@ -1,17 +1,21 @@
-:host{
+:host {
     position: absolute;
 }
-h3{
+
+h3 {
     color: #EA5555;
 }
-p{
+
+p {
     color: #828FA3;
 }
-.button-container{
+
+.button-container {
     width: 100%;
     display: flex;
     gap: 1rem;
-    button{
+
+    button {
         width: 100%;
     }
 }

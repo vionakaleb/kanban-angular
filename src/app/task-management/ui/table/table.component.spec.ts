@@ -10,7 +10,7 @@ describe('TableComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TableComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TableComponent);
     component = fixture.componentInstance;

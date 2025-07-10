@@ -11,7 +11,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class BoardNotExistsComponent implements OnInit {
   boardsStore = inject(BoardsStore);
 
-  ngOnInit(){
+  ngOnInit() {
     this.boardsStore.setActiveBoardId(null);
   }
 }

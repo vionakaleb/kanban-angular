@@ -10,7 +10,7 @@ describe('BoardNotExistsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BoardNotExistsComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(BoardNotExistsComponent);
     component = fixture.componentInstance;

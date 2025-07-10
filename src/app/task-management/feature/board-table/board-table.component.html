@@ -1,15 +1,13 @@
 @if (boardsStore.activeBoard(); as activeBoard) {
-  @if (!activeBoard.statuses.length) {
-    <div class="empty-table">
-      <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
-      <button routerLink="./edit-board" class="btn button-primary-l">+ New Column</button>
-    </div>
-  }
-  <app-table
-  [tasks]="tasks()"
-  ></app-table>
+@if (!activeBoard.statuses.length) {
+<div class="empty-table">
+  <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
+  <button routerLink="./edit-board" class="btn button-primary-l">+ New Column</button>
+</div>
+}
+<app-table [tasks]="tasks()"></app-table>
 }
 @if(!boardsStore.activeBoardExists()){
-  <app-active-board-not-found/>
+<app-active-board-not-found />
 }
-<router-outlet/>
+<router-outlet />

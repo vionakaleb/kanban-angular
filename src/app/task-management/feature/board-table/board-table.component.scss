@@ -1,46 +1,54 @@
-:host{
+:host {
     min-height: calc(100vh - 5rem);
     height: calc(100vh - 5rem);
     display: flex;
     overflow: auto;
     scrollbar-color: #635FC7 transparent;
     scrollbar-width: thin;
-    &:has(.empty-table){
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+    &:has(.empty-table) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
     }
-    &::-webkit-scrollbar-track{
+
+    &::-webkit-scrollbar-track {
         background: transparent;
     }
-    &::-webkit-scrollbar-thumb{
+
+    &::-webkit-scrollbar-thumb {
         background-color: #635FC7;
         border-radius: 20px;
     }
-    &::-webkit-scrollbar-corner{
+
+    &::-webkit-scrollbar-corner {
         background: transparent;
     }
 }
-.empty-table{
+
+.empty-table {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 2rem;
     text-align: center;
-    h1{
+
+    h1 {
         color: #828FA3;
     }
-    button{
+
+    button {
         margin: 2rem;
     }
 }
 
-.new-column{
+.new-column {
     margin-top: 47px;
     margin-right: 1rem;
     display: flex;
@@ -52,13 +60,15 @@
     border-radius: 6px;
     background: var(--new-column-bg);
     cursor: pointer;
-    h2{
+
+    h2 {
         color: #828FA3;
         transition: color .3s;
 
     }
-    &:hover{
-        h2{
+
+    &:hover {
+        h2 {
             color: #635FC7;
         }
     }

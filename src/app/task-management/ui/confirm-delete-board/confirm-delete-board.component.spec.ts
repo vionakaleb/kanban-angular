@@ -16,15 +16,15 @@ describe('ConfirmDeleteBoardComponent', () => {
       columns: [],
       name: ""
     },
-    getBoards(){}
+    getBoards() { }
   }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmDeleteBoardComponent ],
-      providers: [{ provide:BoardsService, useValue: mockBoardsService }]
+      declarations: [ConfirmDeleteBoardComponent],
+      providers: [{ provide: BoardsService, useValue: mockBoardsService }]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ConfirmDeleteBoardComponent);
     component = fixture.componentInstance;

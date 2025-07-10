@@ -8,7 +8,7 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let modalShowServiceSpy: jasmine.SpyObj<ModalShowService>;
   const mockBoardsService = {
-    boards:{
+    boards: {
       boards: []
     },
     currentTask: {
@@ -21,24 +21,24 @@ describe('HeaderComponent', () => {
       columns: [],
       name: ""
     },
-    getBoards(){}
+    getBoards() { }
   }
 
   beforeEach(async () => {
     const modalShowServiceSpyObj = jasmine.createSpyObj('ModalShowService',
-     ['openEditBoardModal', 'closeEditDeleteContainer', 'openDeleteBoardModal', 'openCreateTaskModal'],
-     ['showCreateTaskModal']
-     );
+      ['openEditBoardModal', 'closeEditDeleteContainer', 'openDeleteBoardModal', 'openCreateTaskModal'],
+      ['showCreateTaskModal']
+    );
 
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
+      declarations: [HeaderComponent],
       providers: [
-        {provide: BoardsService, useValue: mockBoardsService},
-        {provide: ModalShowService, useValue: modalShowServiceSpyObj}
-      
+        { provide: BoardsService, useValue: mockBoardsService },
+        { provide: ModalShowService, useValue: modalShowServiceSpyObj }
+
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

@@ -8,10 +8,10 @@ import { ActiveBoardNotFoundComponent } from "../../ui/active-board-not-found/ac
 import { TableComponent } from '../../ui/table/table.component';
 
 @Component({
-    selector: 'app-board-table',
-    templateUrl: './board-table.component.html',
-    styleUrls: ['./board-table.component.scss'],
-    imports: [RouterOutlet, RouterLink, ActiveBoardNotFoundComponent, TableComponent]
+  selector: 'app-board-table',
+  templateUrl: './board-table.component.html',
+  styleUrls: ['./board-table.component.scss'],
+  imports: [RouterOutlet, RouterLink, ActiveBoardNotFoundComponent, TableComponent]
 })
 export class BoardTableComponent {
   boardsStore = inject(BoardsStore);
@@ -31,13 +31,13 @@ export class BoardTableComponent {
       color: this.colors[index]
     }))
   })
-  draggedTask = signal<Task|null>(null);
+  draggedTask = signal<Task | null>(null);
 
-  onTaskClick(id:string){
+  onTaskClick(id: string) {
     this.tasksStore.setActiveTaskId(id);
-    this.router.navigate(['task', id], {relativeTo: this.route});
-    }
+    this.router.navigate(['task', id], { relativeTo: this.route });
+  }
 
 
-  colors=["#49C4E5","#8471F2","#67E2AE","#d6d45a","#e09660","#e0635e","#de5fc7","#5d64de"]
+  colors = ["#49C4E5", "#8471F2", "#67E2AE", "#d6d45a", "#e09660", "#e0635e", "#de5fc7", "#5d64de"]
 }

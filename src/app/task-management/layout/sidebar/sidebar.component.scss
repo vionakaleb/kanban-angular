@@ -1,4 +1,4 @@
-:host{
+:host {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -13,88 +13,107 @@
     overflow: auto;
     scrollbar-color: #635FC7 transparent;
     scrollbar-width: thin;
-    &::-webkit-scrollbar{
+
+    &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
     }
-    &::-webkit-scrollbar-track{
+
+    &::-webkit-scrollbar-track {
         background: transparent;
     }
-    &::-webkit-scrollbar-thumb{
+
+    &::-webkit-scrollbar-thumb {
         background-color: #635FC7;
         border-radius: 20px;
     }
-    &::-webkit-scrollbar-corner{
+
+    &::-webkit-scrollbar-corner {
         background: transparent;
     }
 }
 
-:host[data-opened=false]{
+:host[data-opened=false] {
     display: flex;
     margin-left: -300px;
 }
 
-.sidebar-top{
-    .logo-container{
+.sidebar-top {
+    .logo-container {
         height: 5rem;
         display: flex;
         align-items: center;
-        img{
+
+        img {
             height: 25px;
             width: 147px;
         }
     }
-    .boards{
-        h2{
+
+    .boards {
+        h2 {
             color: #828FA3;
             padding: 1rem 0;
         }
-        ul{
-            li{
+
+        ul {
+            li {
                 list-style: none;
-                button{
+
+                button {
                     width: 130%;
                     margin-left: -30%;
                     padding-left: 30%;
                     background-color: transparent;
                     font-weight: bold;
                     text-align: left;
-                    span{
+
+                    span {
                         margin-left: 1rem;
                     }
                 }
-                .btn-list{
+
+                .btn-list {
                     color: #828FA3;
                     transition: color .3s, background-color .3s;
-                    &:hover{
+
+                    &:hover {
                         background-color: var(--sidebar-btn-hover);
                         color: #635FC7;
-                        path{
+
+                        path {
                             fill: #635FC7;
                         }
                     }
                 }
-                .active{
+
+                .active {
                     background-color: #635FC7;
                     color: #FFFFFF;
-                    &:hover{
+
+                    &:hover {
                         background-color: #635FC7;
-                        color: #FFFFFF; 
-                        path{
+                        color: #FFFFFF;
+
+                        path {
                             fill: #FFFFFF;
                         }
                     }
-                    path{
-                        fill: #FFFFFF; 
+
+                    path {
+                        fill: #FFFFFF;
                     }
                 }
-                .btn-create{
+
+                .btn-create {
                     color: #635FC7;
                     transition: background-color .3s;
-                    &:hover{
+
+                    &:hover {
                         background-color: var(--sidebar-btn-hover);
                     }
-                    path{
+
+                    path {
                         fill: #635FC7;
                     }
                 }
@@ -102,20 +121,24 @@
         }
     }
 }
-.sidebar-bottom{
+
+.sidebar-bottom {
     padding-bottom: 3rem;
-    .email-logout-wrapper{
+
+    .email-logout-wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1rem;
         gap: 1rem;
-        p{
+
+        p {
             font-size: 13px;
             overflow-wrap: anywhere;
         }
     }
-    .theme-switcher-container{
+
+    .theme-switcher-container {
         margin-bottom: 1rem;
         padding: 1rem;
         background-color: var(--color-bg);
@@ -131,12 +154,12 @@
             position: relative;
             width: 40px;
         }
-          
+
         .switch input {
-            display:none;
+            display: none;
         }
-          
-          .slider {
+
+        .slider {
             background-color: #635FC7;
             bottom: 0;
             cursor: pointer;
@@ -145,7 +168,8 @@
             right: 0;
             top: 0;
             transition: .3s;
-            &:hover{
+
+            &:hover {
                 background-color: #A8A4FF;
             }
         }
@@ -153,12 +177,13 @@
         .slider.round {
             border-radius: 34px;
         }
-          
+
         .slider.round:before {
             border-radius: 50%;
         }
     }
-    .display-sidebar{
+
+    .display-sidebar {
         font-family: "Plus Jakarta Sans", sans-serif;
         border: none;
         color: #828FA3;
@@ -173,60 +198,71 @@
         background-color: transparent;
         text-align: left;
         transition: color .3s, background-color .3s;
-        &:hover{
+
+        &:hover {
             background-color: var(--sidebar-btn-hover);
             color: #635FC7;
-            path{
+
+            path {
                 fill: #635FC7;
             }
         }
-        span{
+
+        span {
             margin-left: 1rem;
         }
     }
 }
 
 @media screen and (max-width: 800px) {
-    :host{
+    :host {
         min-width: 260px;
     }
-    :host[data-opened=false]{
+
+    :host[data-opened=false] {
         margin-left: -260px;
     }
 }
-@media screen and (max-width: 575px){
-    :host{
+
+@media screen and (max-width: 575px) {
+    :host {
         position: fixed;
         top: 5rem;
         left: 50%;
         transform: translateX(-50%);
-        height:auto;
+        height: auto;
         max-height: 60%;
         border: none;
         border-radius: 8px;
         box-shadow: 0 10px 20px rgba(54, 78, 126, 0.25);
         z-index: 5;
         transition: left .3s;
-        .sidebar-top{
-            .logo-container{
+
+        .sidebar-top {
+            .logo-container {
                 display: none;
             }
         }
-        .sidebar-bottom{
+
+        .sidebar-bottom {
             padding-bottom: 1rem;
-            .email-logout-wrapper{
+
+            .email-logout-wrapper {
                 flex-direction: column;
                 align-items: flex-start;
-                button{
+
+                button {
                     width: 100%;
                 }
             }
-            .display-sidebar{
+
+            .display-sidebar {
                 display: none;
             }
         }
     }
-    :host[data-opened=false]{
+
+    :host[data-opened=false] {
         margin-left: 0;
         left: -100%;
     }

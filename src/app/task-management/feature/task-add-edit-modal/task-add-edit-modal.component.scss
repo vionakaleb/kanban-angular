@@ -1,47 +1,55 @@
-form{
+form {
     display: flex;
     flex-direction: column;
 }
-span{
-    .title-input{
+
+span {
+    .title-input {
         margin-bottom: 1rem;
     }
 }
 
-.subtask-container{
-    .subtask{
+.subtask-container {
+    .subtask {
         display: flex;
         justify-content: space-between;
-        input{
+
+        input {
             width: 100%;
             margin-bottom: .5rem;
         }
-        button{
+
+        button {
             background-color: transparent;
             border: none;
             padding: 1rem 0 1rem 1rem;
             cursor: pointer;
-            &:hover{
-                svg{
-                    g{
+
+            &:hover {
+                svg {
+                    g {
                         fill: #EA5555;
                     }
                 }
             }
-            svg{
-                g{
+
+            svg {
+                g {
                     transition: fill .3s;
                 }
             }
         }
     }
 }
-.add-new-subtask{
+
+.add-new-subtask {
     margin-top: .5rem;
 }
-.status-label{
+
+.status-label {
     margin: .5rem 0
 }
-.submit{
+
+.submit {
     margin-top: 1.5rem;
 }

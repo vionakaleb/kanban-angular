@@ -17,8 +17,8 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
 
-  ngOnInit(){
-    if (window.innerWidth <= 575){
+  ngOnInit() {
+    if (window.innerWidth <= 575) {
       this.sidebarService.sidebarOpened = false;
     }
   }

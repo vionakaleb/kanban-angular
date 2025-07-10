@@ -4,13 +4,15 @@
   padding: 2rem 2rem 0 2rem;
   background: #23232a; // Soft dark background (customize as needed)
   min-height: 100vh;
+  width: 100%;
 }
 
 /* Search bar styling */
 .search-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 24px;
+  gap: 1rem;
 
   mat-form-field {
     width: 320px;
@@ -50,6 +52,7 @@
     .mat-form-field-appearance-outline .mat-form-field-outline {
       border-color: #39394a;
     }
+
     .mat-form-field-appearance-outline .mat-form-field-outline-thick {
       border-color: #7286d3;
     }
@@ -80,7 +83,8 @@ table.mat-table {
   font-size: 1.1rem;
 }
 
-.mat-header-row, .mat-row {
+.mat-header-row,
+.mat-row {
   height: 60px;
 }
 
@@ -96,6 +100,7 @@ table.mat-table {
 
 .mat-row {
   transition: background 0.2s;
+
   &:hover {
     background: #23233a !important;
   }
@@ -114,6 +119,7 @@ table.mat-table {
   min-width: 48px;
   max-width: 48px;
   text-align: center;
+
   .mat-checkbox {
     margin: 0 auto;
   }
@@ -147,10 +153,12 @@ table.mat-table {
       background: #273c34;
       color: #82e3b0;
     }
+
     &.progress {
       background: #3e2f49;
       color: #fbc94e;
     }
+
     &.ready {
       background: #262f43;
       color: #7cb7ff;
@@ -164,12 +172,40 @@ table.mat-table {
   font-size: 0.97rem;
 }
 
+::ng-deep .cdk-overlay-pane {
+  background: #22232b;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.20);
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  padding: 0 1rem;
+}
+
+.px-1 {
+  padding: 0 1rem;
+}
+
 /* Responsive for small screens */
 @media (max-width: 800px) {
   .search-container {
-    mat-form-field { width: 100%; }
+    mat-form-field {
+      width: 100%;
+    }
   }
-  table.mat-table { font-size: 0.95rem; }
-  .mat-header-row, .mat-row { height: 48px; }
-  .mat-header-cell, .mat-cell { padding: 0 8px; }
+
+  table.mat-table {
+    font-size: 0.95rem;
+  }
+
+  .mat-header-row,
+  .mat-row {
+    height: 48px;
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    padding: 0 8px;
+  }
 }

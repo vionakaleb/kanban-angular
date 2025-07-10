@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class SidebarToggleService {
   sidebarOpened = true;
-  selectedIndex= 0;
+  selectedIndex = 0;
 
-  toggleSidebar(){
+  toggleSidebar() {
     this.sidebarOpened = !this.sidebarOpened;
   }
 
