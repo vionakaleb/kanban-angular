@@ -1,0 +1,175 @@
+/* table.component.scss */
+:host {
+  display: block;
+  padding: 2rem 2rem 0 2rem;
+  background: #23232a; // Soft dark background (customize as needed)
+  min-height: 100vh;
+}
+
+/* Search bar styling */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+
+  mat-form-field {
+    width: 320px;
+    margin: 0;
+    padding: 0;
+    background: none;
+
+    .mat-form-field-flex {
+      background: #26273a;
+      border-radius: 10px;
+      min-height: 44px;
+      align-items: center;
+    }
+
+    .mat-input-element {
+      color: #fff;
+      font-size: 1.2rem;
+      padding: 14px 16px 10px 16px;
+      border-radius: 10px;
+    }
+
+    .mat-form-field-outline {
+      color: #444859;
+    }
+
+    .mat-form-field-outline-thick {
+      color: #6c738c;
+    }
+
+    .mat-form-field-label {
+      color: #bbb !important;
+      font-size: 1.1rem;
+      top: 19px;
+      left: 14px;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      border-color: #39394a;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+      border-color: #7286d3;
+    }
+
+    .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+      border-color: #90caf9;
+    }
+  }
+}
+
+/* Optional: Remove underline in outline mode */
+.mat-form-field-appearance-outline .mat-form-field-underline {
+  display: none;
+}
+
+/* Remove shadow and border on the input */
+input.mat-input-element {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Table base styling */
+table.mat-table {
+  background: #292935;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px 0 #15141a30;
+  font-size: 1.1rem;
+}
+
+.mat-header-row, .mat-row {
+  height: 60px;
+}
+
+.mat-header-cell {
+  background: #212130;
+  color: #c4c8ce;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid #32324b;
+  padding: 0 18px;
+}
+
+.mat-row {
+  transition: background 0.2s;
+  &:hover {
+    background: #23233a !important;
+  }
+}
+
+.mat-cell {
+  color: #ededed;
+  border-bottom: 1px solid #2d2d41;
+  padding: 0 18px;
+  font-size: 1rem;
+}
+
+/* Checkbox column */
+.mat-column-select {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  text-align: center;
+  .mat-checkbox {
+    margin: 0 auto;
+  }
+}
+
+/* Task name bold */
+.mat-column-name {
+  font-weight: 600;
+  color: #e2e3e7;
+}
+
+/* Description muted */
+.mat-column-description {
+  color: #b3b3c6;
+  font-size: 0.97rem;
+}
+
+/* Status color badge */
+.mat-column-statusId {
+  .status-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 16px;
+    font-weight: 500;
+    background: #363b58;
+    color: #8edfff;
+    font-size: 0.97rem;
+    text-transform: capitalize;
+
+    &.done {
+      background: #273c34;
+      color: #82e3b0;
+    }
+    &.progress {
+      background: #3e2f49;
+      color: #fbc94e;
+    }
+    &.ready {
+      background: #262f43;
+      color: #7cb7ff;
+    }
+  }
+}
+
+/* Date */
+.mat-column-createdAt {
+  color: #b0bacb;
+  font-size: 0.97rem;
+}
+
+/* Responsive for small screens */
+@media (max-width: 800px) {
+  .search-container {
+    mat-form-field { width: 100%; }
+  }
+  table.mat-table { font-size: 0.95rem; }
+  .mat-header-row, .mat-row { height: 48px; }
+  .mat-header-cell, .mat-cell { padding: 0 8px; }
+}

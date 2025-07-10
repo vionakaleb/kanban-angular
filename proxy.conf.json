@@ -1,0 +1,26 @@
+{
+    "/auth": {
+      "target": "https://kanban-backend-o2xc.onrender.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    },
+    "/users": {
+      "target": "https://kanban-backend-o2xc.onrender.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    },
+    "/boards": {
+        "target": "https://kanban-backend-o2xc.onrender.com",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/tasks": {
+        "target": "https://kanban-backend-o2xc.onrender.com",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+  }
