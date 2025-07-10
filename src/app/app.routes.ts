@@ -8,7 +8,7 @@ const appRoutes: Routes = [
     {
       path: '',
       component: TaskManagementComponent,
-      title: 'Task management',
+      title: 'Kanban - Task Management',
       children: [
         ...taskMangagementRoutes
       ],
