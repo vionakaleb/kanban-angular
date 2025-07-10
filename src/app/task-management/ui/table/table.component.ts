@@ -10,6 +10,7 @@ import { DatePipe, CommonModule } from '@angular/common';
 import { TasksStore } from '../../+store/tasks.store';
 import { BoardsStore } from '../../+store/boards.store';
 import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface Task {
   id: string;
@@ -43,11 +44,15 @@ export class TableComponent implements AfterViewInit {
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
 
-  displayedColumns: string[] = ['select', 'name', 'description', 'statusName', 'createdAt'];
+  displayedColumns: string[] = ['select', 'name', 'description', 'statusName', 'createdAt', 'details'];
   selection = new SelectionModel<Task>(true, []);
 
   searchTerm: string = '';
   selectedPerson: string = '';
+  selectedRow: Task | null = null;
+  
+  router = inject(Router);
+  route = inject(ActivatedRoute);
 
   @Input() tasks: Array<Task> = [];
   @ViewChild(MatSort, { static: false }) sort!: MatSort;  // static: false is safer with signals
@@ -171,5 +176,15 @@ export class TableComponent implements AfterViewInit {
   getPersonBadgeClass(description: string): string {
     if (description) return 'progress';
     return 'none';
+  }
+
+  selectRow(row: Task) {
+    this.selectedRow = row;
+    // Optional: highlight row or open a detail panel
+  }
+
+  onTaskClick(task: Task) {
+    this.tasksStore.setActiveTaskId(task.id);
+    this.router.navigate(['task', task.id], { relativeTo: this.route });
   }
 }

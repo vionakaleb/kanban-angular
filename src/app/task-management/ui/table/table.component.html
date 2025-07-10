@@ -17,6 +17,15 @@
 </div>
 
 <table *ngIf="isDataReady()" mat-table [dataSource]="dataSource()" matSort class="mat-elevation-z8">
+  <!-- Details -->
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef> Details </th>
+    <td mat-cell *matCellDef="let task">
+      <button (click)="onTaskClick(task)" class="detail-button">
+        Details
+      </button>
+    </td>
+  </ng-container>
 
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
@@ -67,7 +76,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)">
   </tr>
 </table>
 

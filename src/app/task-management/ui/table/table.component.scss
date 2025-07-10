@@ -123,7 +123,8 @@ table.mat-table {
 .mat-column-name,
 .mat-column-description,
 .mat-column-statusName,
-.mat-column-createdAt {
+.mat-column-createdAt,
+.mat-column-details {
   color: #ffffff;
   font-size: 1rem;
 }
@@ -178,6 +179,10 @@ table.mat-table {
 
 .px-1 {
   padding: 0 1rem;
+}
+
+.detail-button {
+  padding: 0.5rem 1rem;
 }
 
 /* Responsive for small screens */
