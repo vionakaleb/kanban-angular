@@ -60,4 +60,8 @@ export class ColumnComponent {
     }
   }
 
+  getPersonBadgeClass(description: string): string {
+    if (description) return 'progress';
+    return 'none';
+  }
 }

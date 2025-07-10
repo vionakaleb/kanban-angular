@@ -1,22 +1,43 @@
-@if (boardsStore.activeBoard(); as activeBoard) {
-@if (!activeBoard.statuses.length) {
-<div class="empty-board">
-  <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
-  <button routerLink="./edit-board" class="btn button-primary-l">+ New Column</button>
+<div class="flex-col">
+  <div class="search-container">
+    <mat-form-field appearance="outline">
+      <mat-label class="px-1">Search</mat-label>
+      <input matInput (keyup)="setSearch($any($event.target).value)" placeholder="Type to search..." />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="min-width:180px;">
+      <mat-label>Filter Person</mat-label>
+      <mat-select (selectionChange)="setPerson($event.value)" [value]="selectedPerson()">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let person of uniquePersons()" [value]="person">
+          {{ person }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="flex">
+    @if (boardsStore.activeBoard(); as activeBoard) {
+    @if (!activeBoard.statuses.length) {
+    <div class="empty-board">
+      <h1 class="heading-l">This board is empty. Create a new column to get started.</h1>
+      <button routerLink="./edit-board" class="btn button-primary-l">+ New Column</button>
+    </div>
+    }
+    @for (column of columnsVM(); let i = $index; track i) {
+    <app-column [(draggedTask)]="draggedTask" [statusId]="column.statusId" [columnName]="column.columnName"
+      [taskNumber]="column.tasks.length" [tasks]="column.tasks" [color]="column.color"
+      (taskClick)="onTaskClick($event)"></app-column>
+    }
+    @if (activeBoard.statuses.length) {
+    <div routerLink="./edit-board" class="new-column">
+      <h2 class="heading-xl">+ New Column</h2>
+    </div>
+    }
+    }
+    @if(!boardsStore.activeBoardExists()){
+    <app-active-board-not-found />
+    }
+  </div>
 </div>
-}
-@for (column of columnsVM(); let i = $index; track i) {
-<app-column [(draggedTask)]="draggedTask" [statusId]="column.statusId" [columnName]="column.columnName"
-  [taskNumber]="column.tasks.length" [tasks]="column.tasks" [color]="column.color"
-  (taskClick)="onTaskClick($event)"></app-column>
-}
-@if (activeBoard.statuses.length) {
-<div routerLink="./edit-board" class="new-column">
-  <h2 class="heading-xl">+ New Column</h2>
-</div>
-}
-}
-@if(!boardsStore.activeBoardExists()){
-<app-active-board-not-found />
-}
 <router-outlet />

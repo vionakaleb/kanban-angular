@@ -22,11 +22,6 @@ export interface Task {
   createdAt: string;
 }
 
-type StatusId =
-  | 'd1fbf2ff-b14c-4d6f-95f1-664dafe167b9'
-  | '366869be-4f7d-4469-8b7f-8291f1dbecb3'
-  | '8bb72d66-d8e1-478d-9db1-4325c35bf9a3';
-
 @Component({
   selector: 'app-table',
   styleUrls: ['table.component.scss'],
@@ -43,6 +38,7 @@ type StatusId =
     DatePipe
   ]
 })
+
 export class TableComponent implements AfterViewInit {
   boardsStore = inject(BoardsStore);
   tasksStore = inject(TasksStore);
@@ -160,5 +156,20 @@ export class TableComponent implements AfterViewInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
+  }
+
+  getStatusBadgeClass(status: string): string {
+    switch ((status || '').toLowerCase()) {
+      case 'waiting for review': return 'waiting';
+      case 'ready to start': return 'ready';
+      case 'in progress': return 'progress';
+      case 'done': return 'done';
+      default: return '';
+    }
+  }
+
+  getPersonBadgeClass(description: string): string {
+    if (description) return 'progress';
+    return 'none';
   }
 }

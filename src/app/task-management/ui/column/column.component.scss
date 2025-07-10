@@ -5,6 +5,10 @@
     width: 280px;
 }
 
+.person-label {
+    margin-top: 1rem;
+}
+
 .column-head {
     display: flex;
     margin: 1rem 0;
@@ -54,5 +58,42 @@
             }
         }
 
+    }
+}
+
+/* Status color badge */
+.status-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 16px;
+    font-weight: 500;
+    background: #363b58;
+    color: #8edfff;
+    font-size: 0.97rem;
+    text-transform: capitalize;
+    transition: background 0.2s, color 0.2s;
+
+    &.waiting {
+        background: #44557a;
+        color: #7cb7ff;
+    }
+
+    &.ready {
+        background: #1a4376;
+        color: #ffffff;
+    }
+
+    &.progress {
+        background: #6c5826;
+        color: #fbc94e;
+    }
+
+    &.done {
+        background: #273c34;
+        color: #82e3b0;
+    }
+
+    &.none {
+        background: transparent;
     }
 }
